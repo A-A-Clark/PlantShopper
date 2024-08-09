@@ -3,6 +3,7 @@ import "./ProductList.css";
 import CartItem from "./CartItem";
 import { addItem } from "./CartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { selectTotalItems } from "./CartSlice";
 function ProductList() {
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
@@ -293,9 +294,7 @@ function ProductList() {
     e.preventDefault();
     setShowCart(false);
   };
-  const totalItemQuantity = () => {
-
-  };
+  const totalItemQuantity = useSelector(selectTotalItems);
 
   return (
     <div>
@@ -369,7 +368,7 @@ function ProductList() {
                     <div className="product-title"> {plant.name} </div>
                     <button
                       className="product-button"
-                      onClick={() => handleAddToCart(plant)}
+                      onClick={() => {handleAddToCart(plant), totalItemQuantity()}}
                     >
                       {" "}
                       Add to Cart
